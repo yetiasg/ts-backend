@@ -20,7 +20,9 @@ export class App{
   }
 
   private _connectToDatabase(){
-    mongoose.connect(`${String(config.database.DB_HOST)}/back_ts`)
+    mongoose.connect(`${String(config.database.DB_HOST)}/back_ts`, () => {
+      console.log("connected")
+    })
   }
 
   private _initializeMiddlewares(){
