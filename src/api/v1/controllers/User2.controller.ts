@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { Controller } from '../interfaces-types/Controller.interface';
+import { Controller } from '../interfaces-types-abstracts/Controller.interface';
 
 
 export class UserController2 implements Controller{

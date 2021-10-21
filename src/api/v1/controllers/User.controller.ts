@@ -1,16 +1,16 @@
 import express, { Request, Response } from "express";
 import { JwtService } from "../services/JwtService.service";
-import { Controller } from '../interfaces-types/Controller.interface';
+import { Controller } from '../interfaces-types-abstracts/Controller.interface';
 
 
-export class UserController{
+export class UserController implements Controller{
   public readonly path: string = '/user'
   public router = express.Router();
   constructor(){
     this._initializeRoutes()
   }
 
-  private _initializeRoutes(){
+  _initializeRoutes(){
     this.router.get(`${this.path}/`, JwtService.verifyAccessToken , this._getUser);
     this.router.get(`${this.path}/aaa`, this._getUserA);
     this.router.get(`${this.path}/bbb`, this._getUserB)

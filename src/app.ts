@@ -4,13 +4,14 @@ import cors from 'cors';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import config from './config/config';
+import { Controller } from './api/v1/interfaces-types-abstracts/Controller.interface';
 
 import { routeDoesNotExist } from './api/v1/middlewares/routeDoesNotExist.middleware';
 import {  errorHandler } from './api/v1/middlewares/error.middleware';
 
 export class App{
   public app: express.Application;
-  constructor(controllers:any, public port:number){
+  constructor(controllers:Controller[], public port:number){
     this.app = express();
     this._connectToDatabase();
     this._initializeMiddlewares();
@@ -35,8 +36,8 @@ export class App{
     this.app.use(express.json());
   }
 
-  private _initializeControllers(controllers:any){
-    controllers.forEach((controller:any) => {
+  private _initializeControllers(controllers:Controller[]){
+    controllers.forEach((controller:Controller) => {
       this.app.use('/', controller.router)
     })
   }

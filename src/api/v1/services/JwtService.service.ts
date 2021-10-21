@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 import JWT from 'jsonwebtoken';
 import config from '../../../config/config';
 
-import { RequestException } from '../interfaces-types/RequestException.interface';
+import { RequestException } from '../interfaces-types-abstracts/RequestException.interface';
 
 export class JwtService{
   signAccessToken = (userId: ObjectId) => {
@@ -21,7 +21,7 @@ export class JwtService{
 
   static verifyAccessToken = (req: RequestException, res: Response, next: NextFunction) => {
     if(!req.headers['authorization']) return next(new createError.Unauthorized());
-    const token:string = req.headers['authorization'].split(' ')[1];
+    const token = req.headers['authorization'].split(' ')[1];
     if(!token) return next(new createError.Unauthorized());
     JWT.verify(token, String(config.auth.ACCESS_TOKEN_SECRET), (err, payload) => {
       if(err){

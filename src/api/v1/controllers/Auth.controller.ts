@@ -3,7 +3,7 @@ import createError from 'http-errors';
 import { ObjectId } from 'mongodb';
 import { Validator } from "../validations/Validator.validation";
 import { User } from "../models/User.model";
-import { Controller } from '../interfaces-types/Controller.interface';
+import { Controller } from '../interfaces-types-abstracts/Controller.interface';
 
 
 export class AuthController implements Controller{
