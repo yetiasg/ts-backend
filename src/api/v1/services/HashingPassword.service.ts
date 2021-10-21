@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import createError from 'http-errors';
 
 export class HashingPasswordService{
-  static hashPassword = async(password:string) =>{
+  static hashPassword = async(password:string):Promise<string> =>{
     try{
       const salt = await bcrypt.genSalt(12);
       return await bcrypt.hash(password, salt);
@@ -11,7 +11,7 @@ export class HashingPasswordService{
     }
   }
 
-  static comparePassword = async(password:string, hashedPassword:string) => {
+  static comparePassword = async(password:string, hashedPassword:string):Promise<boolean> => {
     try{
       return await bcrypt.compare(password, hashedPassword);
     }catch (error){

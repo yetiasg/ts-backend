@@ -6,8 +6,9 @@ import config from '../../../config/config';
 
 import { RequestException } from '../interfaces-types-abstracts/RequestException.interface';
 
+
 export class JwtService{
-  signAccessToken = (userId: ObjectId) => {
+  signAccessToken = (userId: ObjectId):Promise<string | undefined> => {
      return new Promise((resolve, reject) => {
       const payload = { userId };
       const secret = String(config.auth.ACCESS_TOKEN_SECRET);
@@ -33,7 +34,7 @@ export class JwtService{
     });
   }
 
-  signRefreshToken = (userId: ObjectId) => {
+  signRefreshToken = (userId: ObjectId):Promise<string | undefined> => {
     return new Promise((resolve, reject) => {
       const payload = { userId };
       const secret = String(config.auth.REFRESH_TOKEN_SECRET);
@@ -45,14 +46,14 @@ export class JwtService{
     });
   }
 
-  verifyRefreshRoken = (token: string) => {
+  verifyRefreshRoken = (token:string):Promise<string> => {
     return new Promise((resolve, reject) => {
       JWT.verify(token, String(config.auth.REFRESH_TOKEN_SECRET), (err, payload: any) => {
         if(err){
           const message = err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message;
           return reject(new createError.Unauthorized(message));
         }
-        const userId = payload.userId;
+        const userId = String(payload.userId);
         resolve(userId);
       });
     });
