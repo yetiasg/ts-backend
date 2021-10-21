@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
 import { JwtService } from "../services/JwtService.service";
+import { Controller } from '../interfaces-types/Controller.interface';
+
 
 export class UserController{
   public readonly path: string = '/user'

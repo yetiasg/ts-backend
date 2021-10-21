@@ -1,4 +1,4 @@
-import { App } from './app';
+import { App } from './App';
 import config from './config/config';
 import { UserController } from './api/v1/controllers/User.controller';
 import { UserController2 } from './api/v1/controllers/User2.controller'; 

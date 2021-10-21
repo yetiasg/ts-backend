@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 import JWT from 'jsonwebtoken';
 import config from '../../../config/config';
 
-import { RequestException } from '../interfaces-types/requestException.interface';
+import { RequestException } from '../interfaces-types/RequestException.interface';
 
 export class JwtService{
   signAccessToken = (userId: ObjectId) => {
