@@ -4,11 +4,12 @@ import { ObjectId } from 'mongodb';
 import { Validator } from "../validations/Validator.validation";
 import { UserModel } from "../models/User.model";
 import { Controller } from '../interfaces/Controller.interface';
-
+import { UserInterface } from "../interfaces/user.interface";
 
 export class AuthController implements Controller{
-  readonly path:string = '/auth';
-  router = express.Router();
+  public readonly path:string = '/auth';
+  public router = express.Router();
+  private User = UserModel;
   constructor(){
     this._initializeRoutes()
   }
@@ -21,9 +22,10 @@ export class AuthController implements Controller{
 
   private _register = async(req:Request, res:Response, next:NextFunction):Promise<Response | undefined> => {
     try{
-      const {email, password} = await Validator.loginSchema.validateAsync(req.body);
+      const userData:UserInterface = await Validator.loginSchema.validateAsync(req.body);
+      const { email, password } = userData
       if(!email || email.length <= 0 || !password || password.length <= 0) throw new createError.Unauthorized();
-      const user = new UserModel({_id: new ObjectId(), email, password})
+      const user = new this.User({_id: new ObjectId(), email, password})
       if(!user) throw new createError.Unauthorized();
       user.save();
       return res.send({user});
