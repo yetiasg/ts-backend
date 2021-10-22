@@ -15,7 +15,7 @@ export class AuthController implements Controller{
   }
 
   private _initializeRoutes(){
-    this.router.post(`${this.path}/login`);
+    this.router.post(`${this.path}/login`, this._login);
     this.router.post(`${this.path}/register`, this._register);
     this.router.post(`${this.path}/refresh`);
   }
@@ -28,8 +28,16 @@ export class AuthController implements Controller{
       const user = new this.User({_id: new ObjectId(), email, password})
       if(!user) throw new createError.Unauthorized();
       user.save();
-      return res.send({user});
+      return res.status(200).json({user});
     }catch (error){
+      next(error)
+    }
+  }
+
+  private _login = async(req:Request, res:Response, next:NextFunction) => {
+    try{
+      return res.status(200).json({loggedIn: true})
+    }catch(error){
       next(error)
     }
   }
