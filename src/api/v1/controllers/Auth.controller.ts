@@ -17,7 +17,7 @@ export class AuthController implements Controller{
   private _initializeRoutes(){
     this.router.post(`${this.path}/login`, this._login);
     this.router.post(`${this.path}/register`, this._register);
-    this.router.post(`${this.path}/refresh`);
+    this.router.post(`${this.path}/refresh`, this._refresh);
   }
 
   private _register = async(req:Request, res:Response, next:NextFunction):Promise<Response | undefined> => {
@@ -30,15 +30,23 @@ export class AuthController implements Controller{
       user.save();
       return res.status(200).json({user});
     }catch (error){
-      next(error)
+      next(error);
     }
   }
 
   private _login = async(req:Request, res:Response, next:NextFunction) => {
     try{
-      return res.status(200).json({loggedIn: true})
+      return res.status(200).json({loggedIn: true});
     }catch(error){
-      next(error)
+      next(error);
+    }
+  }
+
+  private _refresh = async(req:Request, res:Response, next:NextFunction) => {
+    try{
+      return res.status(200).json({refreshed: true});
+    }catch(error){
+      next(error);
     }
   }
 }
