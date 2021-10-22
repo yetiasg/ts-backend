@@ -7,7 +7,7 @@ import config from './config/config';
 import { Controller } from './api/v1/interfaces-types-abstracts/Controller.interface';
 
 import { routeDoesNotExist } from './api/v1/middlewares/routeDoesNotExist.middleware';
-import {  errorHandler } from './api/v1/middlewares/error.middleware';
+import { errorHandler } from './api/v1/middlewares/error.middleware';
 
 export class App{
   public app: express.Application;
