@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { JwtService } from "../services/JwtService.service";
-import { Controller } from '../interfaces-types-abstracts/Controller.interface';
+import { Controller } from '../interfaces/Controller.interface';
 
 
 export class UserController implements Controller{
@@ -10,7 +10,7 @@ export class UserController implements Controller{
     this._initializeRoutes()
   }
 
-  _initializeRoutes(){
+  private _initializeRoutes(){
     this.router.get(`${this.path}/`, JwtService.verifyAccessToken , this._getUser);
     this.router.get(`${this.path}/aaa`, this._getUserA);
     this.router.get(`${this.path}/bbb`, this._getUserB)

@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 import JWT from 'jsonwebtoken';
 import config from '../../../config/config';
 
-import { RequestException } from '../interfaces-types-abstracts/RequestException.interface';
+import { RequestException } from '../interfaces/RequestException.interface';
 
 
 export class JwtService{
