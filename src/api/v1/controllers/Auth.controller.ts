@@ -22,8 +22,9 @@ export class AuthController implements Controller{
 
   private _register = async(req:Request, res:Response, next:NextFunction):Promise<Response | undefined> => {
     try{
-      const userData:UserInterface = await Validator.loginSchema.validateAsync(req.body);
-      const { email, password } = userData
+      const userData:UserInterface = await Validator.registerSchema.validateAsync(req.body);
+      const { email, password, repeatPassword } = userData;
+      if(password!==repeatPassword) throw new createError.BadRequest();
       if(!email || email.length <= 0 || !password || password.length <= 0) throw new createError.Unauthorized();
       const user = new this.User({_id: new ObjectId(), email, password})
       if(!user) throw new createError.Unauthorized();
@@ -36,6 +37,10 @@ export class AuthController implements Controller{
 
   private _login = async(req:Request, res:Response, next:NextFunction) => {
     try{
+      const userData:UserInterface = await Validator.loginSchema.validateAsync(req.body);
+      const { email, password } = userData;
+
+
       return res.status(200).json({loggedIn: true});
     }catch(error){
       next(error);
