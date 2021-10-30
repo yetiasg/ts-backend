@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import createError, { HttpError } from 'http-errors';
+import createError from 'http-errors';
 import { ObjectId } from 'mongodb';
 import { Validator } from "../validations/Validator.validation";
 import { UserModel } from "../models/User.model";
@@ -20,7 +20,7 @@ export class AuthController implements Controller{
     this.router.post(`${this.path}/refresh`, this._refresh);
   }
 
-  private _register = async(req:Request, res:Response, next:NextFunction):Promise<Response | undefined> => {
+  private _register = async(req:Request, res:Response, next:NextFunction):Promise<Response | void> => {
     try{
       const userData:UserInterface = await Validator.registerSchema.validateAsync(req.body);
       const { email, password, repeatPassword } = userData;

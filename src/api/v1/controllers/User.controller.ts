@@ -17,15 +17,15 @@ export class UserController implements Controller{
   }
 
   private _getUser = (req:Request, res:Response) => {
-    res.json({user: 'user'})
+    res.status(200).json({user: 'user'})
   }
 
   private _getUserA = (req:Request, res:Response) => {
-    res.json({user: 'a'})
+    res.status(200).json({user: 'a'})
   }
 
   private _getUserB = (req:Request, res:Response) => {
-    res.json({user: 'b'})
+    res.status(200).json({user: 'b'})
   }
 
 }
